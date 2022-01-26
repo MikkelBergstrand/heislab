@@ -52,3 +52,23 @@ func udp_server(l_addr string) {
 		go sendResponse(ser, remoteaddr)
 	}
 }
+
+func read_UDP(network, laddr string) {
+	net.ListenUDP(network, laddr)
+}
+
+func write_UDP(raddr, msg string, msg_size uint64) {
+	net.WriteToUDP(msg, raddr)
+}
+
+func main() {
+	network = "udp"
+	laddr := "127.0.0.1"
+	raddr := "0"
+	msg = "HEI, JEG ER KLAR FOR ALT!\n"
+	msg_size = len(msg)
+	conn, err = net.Dial(network, laddr)
+	go read_UDP(network, laddr)
+	go write_UDP(raddr, msg, msg_size)
+
+}
