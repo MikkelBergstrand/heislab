@@ -1,15 +1,19 @@
 package main
 
-import(
+import "net"
 
-)
+func main() {
+	rAddr, _ := net.ResolveUDPAddr("udp", "10.100.23.240:20010")
+	conn, err := net.DialUDP("udp", nil, rAddr)
 
-func main(){
-	l_addr := "127.0.0.1" //"127.0.0.1:1234"
-	port:= 30000
+	if err != nil {
+		print("Taper")
+	}
 
+	defer conn.Close()
+	conn.Write([]byte("EG ER KLAR FOR ALT!"))
 
 }
 
-//send, listen, dial, 
+//send, listen, dial,
 //
