@@ -50,14 +50,33 @@ func main() {
 	writing := make(chan string)
 	quit := make(chan string)
 
-	address_str := "10.22.72.55:30000"
-	address, _ := net.ResolveUDPAddr("udp", address_str)
-	ln, err := net.ListenUDP("udp", address)
+	address_str := "10.100.23.245:30000"
+
+	address, err := net.ResolveUDPAddr("udp", address_str)
 	if err != nil {
+		fmt.Print("3")
 		panic(err)
 	}
+
+	ln, err := net.ListenUDP("udp", address)
+	if err != nil {
+		fmt.Print("4")
+		panic(err)
+	}
+
 	defer ln.Close()
-	conn, _ := net.DialUDP("udp", nil, address)
+	raddress_str := "10.100.23.240:20010"
+	raddress, err := net.ResolveUDPAddr("udp", raddress_str)
+	if err != nil {
+		fmt.Print("1")
+		panic(err)
+	}
+
+	conn, err := net.DialUDP("udp", raddress, address)
+	if err != nil {
+		fmt.Print("2")
+		panic(err)
+	}
 	defer conn.Close()
 
 	go readingUDP(ln, reading)
