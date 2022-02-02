@@ -14,7 +14,7 @@ func handleTheQuit(q chan string) {
 	q <- "Quit"
 }
 
-func readingUDP(ln *net.UDPConn, r chan string) {
+func readingUDP(ln net.PacketConn, r chan string) {
 	for {
 		buf := make([]byte, 2048)
 		n, addr, _ := ln.ReadFrom(buf)
@@ -50,29 +50,32 @@ func main() {
 	writing := make(chan string)
 	quit := make(chan string)
 
-	address_str := "10.100.23.245:30000"
+	//broadcast_IP = "255.255.255.255"
+	server_str := "10.100.23.240"
 
-	address, err := net.ResolveUDPAddr("udp", address_str)
+	address, err := net.ResolveUDPAddr("udp", server_str+":20010")
 	if err != nil {
 		fmt.Print("3")
 		panic(err)
 	}
 
-	ln, err := net.ListenUDP("udp", address)
+	ln, err := net.ListenPacket("udp", ":20010")
 	if err != nil {
 		fmt.Print("4")
 		panic(err)
 	}
 
 	defer ln.Close()
-	raddress_str := "10.100.23.240:20010"
-	raddress, err := net.ResolveUDPAddr("udp", raddress_str)
-	if err != nil {
-		fmt.Print("1")
-		panic(err)
-	}
+	/*
+		raddress_str := "10.100.23.240:20010"
+		raddress, err := net.ResolveUDPAddr("udp", raddress_str)
+		if err != nil {
+			fmt.Print("1")
+			panic(err)
+		}
+	*/
 
-	conn, err := net.DialUDP("udp", raddress, address)
+	conn, err := net.DialUDP("udp", nil, address)
 	if err != nil {
 		fmt.Print("2")
 		panic(err)
