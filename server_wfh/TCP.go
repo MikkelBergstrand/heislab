@@ -12,7 +12,7 @@ import (
 //Lage en buffer til hver av de (client, og server)
 //port, message, message_size, som input
 
-func tcp_client(){
+func tcp_client() {
 	//connect, via connect sende noe, stenge connect
 	arguments := os.Args
 	if len(arguments) == 1 {
@@ -43,7 +43,7 @@ func tcp_client(){
 
 }
 
-func tcp_server(){
+func tcp_server() {
 	arguments := os.Args
 	if len(arguments) == 1 {
 		fmt.Println("Please provide port number")
