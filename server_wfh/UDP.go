@@ -55,13 +55,11 @@ func main() {
 
 	address, err := net.ResolveUDPAddr("udp", server_str+":20010")
 	if err != nil {
-		fmt.Print("3")
 		panic(err)
 	}
 
 	ln, err := net.ListenPacket("udp", ":20010")
 	if err != nil {
-		fmt.Print("4")
 		panic(err)
 	}
 
@@ -77,7 +75,6 @@ func main() {
 
 	conn, err := net.DialUDP("udp", nil, address)
 	if err != nil {
-		fmt.Print("2")
 		panic(err)
 	}
 	defer conn.Close()
