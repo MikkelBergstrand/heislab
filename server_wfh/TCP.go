@@ -23,14 +23,14 @@ func writeTCP(conn net.Conn, w chan string) {
 }
 
 func main() {
-	server_addr_str := ""
+	server_addr_str := "10.100.23.240:33546"
 	server_addr, _ := net.ResolveTCPAddr("tcp", server_addr_str)
-	local_addr_str := ""
-	local_addr, _ := net.ResolveTCPAddr("tcp", local_addr_str)
+	// local_addr_str := ""
+	// local_addr, _ := net.ResolveTCPAddr("tcp", local_addr_str)
 
-	conn, _ := net.DialTCP("tcp", local_addr, server_addr)
+	conn, _ := net.DialTCP("tcp", nil, server_addr)
 	defer conn.Close()
-	ln, _ := net.ListenTCP("tcp", local_addr)
+	ln, _ := net.ListenTCP("tcp", server_addr)
 	defer ln.Close()
 
 	read_ch := make(chan string)
