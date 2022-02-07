@@ -24,8 +24,8 @@ func writeTCP(conn net.Conn, w chan string) {
 
 func main() {
 	server_addr_str := ""
-	local_addr_str := ""
 	server_addr, _ := net.ResolveTCPAddr("tcp", server_addr_str)
+	local_addr_str := ""
 	local_addr, _ := net.ResolveTCPAddr("tcp", local_addr_str)
 
 	conn, _ := net.DialTCP("tcp", local_addr, server_addr)
@@ -41,6 +41,7 @@ func main() {
 	write_ch <- "Connect to: #.#.#.#:#\000"
 	for {
 		c, _ := ln.Accept()
+		readTCP(c, read_ch)
 		defer c.Close()
 	}
 }
